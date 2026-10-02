@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>100 Things I Like About You</title>
+<title>SOMETHING FOR SOMEONE VERY SPECIAL...</title>
 
 <style>
 
@@ -612,6 +612,25 @@ body {
 }
 
 
+.cover-countdown-label {
+    margin-top: 30px;
+    color: #d7bb8c;
+    font-size: .68rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+
+.cover-countdown {
+    margin-top: 8px;
+    color: #f6e7cb;
+    font-family: Arial, sans-serif;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+}
+
+
 .closed-cover {
 
     position: absolute;
@@ -768,6 +787,41 @@ body {
 
 .closing-wish .birthday-sign {
     margin-top: 12px;
+}
+
+
+.personal-letter .birthday-symbol {
+    margin-bottom: 3px;
+}
+
+
+.personal-letter h1 {
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    line-height: 1.2;
+    margin-bottom: 9px;
+}
+
+
+.personal-letter p {
+    max-width: none;
+    font-size: .78rem;
+    line-height: 1.35;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+
+.personal-letter .birthday-sign {
+    margin-top: 4px;
+}
+
+
+.final-declaration h1 {
+    max-width: 100%;
+    color: #68282d;
+    font-size: 2.6rem;
+    font-weight: normal;
+    line-height: 1.15;
 }
 
 
@@ -1392,6 +1446,14 @@ return `
     <div class="cover-sub">
         made especially for someone I like, with love
     </div>
+
+    <div class="cover-countdown-label" id="cover-countdown-label">
+        The book opens in
+    </div>
+
+    <time class="cover-countdown" id="cover-countdown" aria-live="off">
+        -- : -- : -- : --
+    </time>
 `;
 }
 
@@ -1436,11 +1498,49 @@ function closingWishContent() {
 return `
     <div class="birthday-symbol">✦</div>
 
-    <h1>Wishing You the Best</h1>
+    <p>So uh, first of all, happy birthday... in fact...</p>
 
-    <p>
-        Happy birthday, Zeemal! I hope your day is full of the kind of happiness you give to the people around you, and that the year ahead brings you new adventures, beautiful memories, and plenty of reasons to laugh. You deserve to feel celebrated not just today, but every day: for your kindness, your humor, your strength, and all the little things that make you so wonderfully you. Thank you for being someone who can make an ordinary moment brighter just by being there. I hope you keep chasing what makes you excited, feel proud of how far you have come, and always remember how much you are appreciated. May this next chapter be gentle when you need rest, exciting when you want adventure, and filled with people who care about you. Have the loveliest birthday, Zeemal. I’m really glad you’re in my life, and I hope this little book reminds you of that whenever you need a smile.
-    </p>
+    <h1><strong>HAPPIEST BIRTHDAY, ZEEMAL.</strong> 🫶🏻</h1>
+
+    <p>You are my most favourite person. You have been in my life for so long that I genuinely can’t imagine my life without talking to you.</p>
+
+    <p>Idk why, but I feel like we’ve been talking less these days. Maybe life is busy or something, I really don’t know. But I wanted to tell you that I’ve been counting down to your birthday every single day, just knowing how happy you’d be when it finally came.</p>
+
+    <p>All the time, I’m thinking about you. And when I say that you’re the GOAT, I genuinely mean it. <strong>YOU ARE THE GOAT.</strong> And... ah, you’re the best, Zeemal.</p>
+`;
+}
+
+
+function closingWishSecondPageContent() {
+
+return `
+    <div class="birthday-symbol">✦</div>
+
+    <h1>All of This, in Alfaaz</h1>
+
+    <p>Idk how to put all of this into “alfaaz”, but just know that my love and care for you can’t really be “bayaan” in words. When I’m writing this, I’m writing it with nothing but pure feelings and care for you.</p>
+
+    <p>I hope this year brings you so much happiness. I hope this year grants you the things you’ve been wishing for. I hope you get what you want. I hope your mental health is really good this year. And I hope you never lose anyone you genuinely want to keep in your life.</p>
+
+    <p>If you ever want me to do something, I’m always there, Zeemal. I’ve never said “no” to you, I’ve never lied to you, and I’ve never refused to tell you anything. And I hope that never changes.</p>
+`;
+}
+
+
+function closingWishThirdPageContent() {
+
+return `
+    <div class="birthday-symbol">✦</div>
+
+    <h1>One More Thing</h1>
+
+    <p>Yesterday you asked me what I was doing, and I said I was making something. I’m sorry I refused to tell you 😭 but it was this book. This thing had me fighting for my life with all the complexity and animations typeshi 😭🙏</p>
+
+    <p>And Zeemal, I want you to do one thing for me:</p>
+
+    <p><strong>Whenever I ask you if you’re good, just be honest with me.</strong></p>
+
+    <p>No matter how bad I am. No matter if I’m not doing good at that moment. I’ll always be there for you. The idk 5 months? They felt like the best days to me, I know... but hours feels like minutes with you.. and minutes feels like hours without you. I am so freaking grateful to have you... I am grateful that I sent you follow request from spam although not knowing who you. It was all (destiny🙃). I dont have much to say... cuz words cant define my love, care, and happiness for you..</p>
 
     <div class="birthday-sign">With lots of umm efforts n love 🫶 </div>
 `;
@@ -1545,8 +1645,32 @@ for(let start = 0; start < 100; start += 10) {
 
 pages.push({
     content: closingWishContent(),
-    className: "birthday closing-wish",
+    className: "birthday closing-wish personal-letter",
     name: "Birthday Wish"
+});
+
+
+pages.push({
+    content: closingWishSecondPageContent(),
+    className: "birthday closing-wish personal-letter",
+    name: "Birthday Wish, Continued"
+});
+
+
+pages.push({
+    content: closingWishThirdPageContent(),
+    className: "birthday closing-wish personal-letter",
+    name: "Birthday Wish, Final Page"
+});
+
+
+pages.push({
+    content: `
+        <div class="birthday-symbol">♡</div>
+        <h1>I LOVE YOU SO MUCH ZEEMALL!!!</h1>
+    `,
+    className: "birthday final-declaration",
+    name: "I Love You"
 });
 
 
@@ -1716,6 +1840,17 @@ const status =
 
 let currentSpread = 0;
 let isCoverClosed = true;
+const openingTime =
+    new Date(2026, 9, 3, 0, 0, 0).getTime();
+
+const countdownDisplay =
+    document.getElementById("cover-countdown");
+
+const countdownLabel =
+    document.getElementById("cover-countdown-label");
+
+const lastSpread =
+    Math.floor((pages.length - 1) / 2);
 
 
 function updateSheetStack() {
@@ -1733,13 +1868,40 @@ function updateSheetStack() {
 }
 
 
+function scheduleSheetRestack(sheet) {
+
+    let restacked = false;
+
+    const restack = () => {
+
+        if(restacked)
+            return;
+
+        restacked = true;
+
+        updateSheetStack();
+
+    };
+
+    sheet.addEventListener(
+        "transitionend",
+        restack,
+        { once: true }
+    );
+
+    window.setTimeout(restack, 1100);
+}
+
+
 function updateStatus() {
 
     previousButton.disabled =
         isCoverClosed;
 
     nextButton.disabled =
-        !isCoverClosed && currentSpread >= sheets.length;
+        isCoverClosed
+            ? Date.now() < openingTime
+            : currentSpread >= lastSpread;
 
 
     if(isCoverClosed) {
@@ -1811,6 +1973,44 @@ function updateStatus() {
 }
 
 
+function updateCountdown() {
+
+    const remaining =
+        Math.max(0, openingTime - Date.now());
+
+    let remainingSeconds =
+        Math.ceil(remaining / 1000);
+
+    const days =
+        Math.floor(remainingSeconds / 86400);
+
+    remainingSeconds %= 86400;
+
+    const hours =
+        Math.floor(remainingSeconds / 3600);
+
+    remainingSeconds %= 3600;
+
+    const minutes =
+        Math.floor(remainingSeconds / 60);
+
+    const seconds =
+        remainingSeconds % 60;
+
+    countdownDisplay.textContent =
+        [days, hours, minutes, seconds]
+            .map(value => String(value).padStart(2, "0"))
+            .join(" : ");
+
+    countdownLabel.textContent =
+        remaining === 0
+            ? "Your book is ready"
+            : "The book opens in";
+
+    updateStatus();
+}
+
+
 /* =========================================================
    NEXT
 ========================================================= */
@@ -1818,6 +2018,14 @@ function updateStatus() {
 function nextPage() {
 
     if(isCoverClosed) {
+
+        if(Date.now() < openingTime) {
+
+            updateCountdown();
+
+            return;
+
+        }
 
         isCoverClosed = false;
 
@@ -1829,7 +2037,7 @@ function nextPage() {
     }
 
 
-    if(currentSpread >= sheets.length)
+    if(currentSpread >= lastSpread)
         return;
 
 
@@ -1837,11 +2045,7 @@ function nextPage() {
 
     sheet.style.zIndex = "2000";
 
-    sheet.addEventListener(
-        "transitionend",
-        updateSheetStack,
-        { once: true }
-    );
+    scheduleSheetRestack(sheet);
 
     sheet.classList.add("flipped");
 
@@ -1880,11 +2084,7 @@ function previousPage() {
 
     sheet.style.zIndex = "2000";
 
-    sheet.addEventListener(
-        "transitionend",
-        updateSheetStack,
-        { once: true }
-    );
+    scheduleSheetRestack(sheet);
 
     sheet.classList.remove("flipped");
 
@@ -2024,7 +2224,9 @@ document.addEventListener(
    START
 ========================================================= */
 
-updateStatus();
+updateCountdown();
+
+window.setInterval(updateCountdown, 1000);
 
 </script>
 
