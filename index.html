@@ -1090,120 +1090,133 @@ body {
         background:
             #1b0d07;
 
-        padding: 15px;
-
-        overflow-y: auto;
-
-        justify-content: flex-start;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        padding: 8px;
+        gap: 8px;
+        overflow: hidden;
     }
 
 
     .stage-container {
 
+        flex: 1;
+        width: 100%;
         height: auto;
-
-        perspective: none;
+        min-height: 0;
+        perspective: 1800px;
     }
 
 
     .book-binding {
 
-        height: auto;
-
+        height: 100%;
         transform: none;
-
-        background: none;
-
-        padding: 0;
-
-        box-shadow: none;
+        padding: 6px;
     }
 
 
     .paper-stack {
 
-        height: auto;
-
-        background: none;
-
-        box-shadow: none;
+        height: 100%;
     }
 
 
     .spine-shadow {
 
-        display: none;
+        width: 28px;
     }
 
 
     .page {
 
-        position: relative;
-
-        width: 100%;
-
-        height: auto;
-
-        min-height: 500px;
-
-        display: block;
-
-        margin-bottom: 15px;
-
-        border-radius: 5px !important;
-
-        padding: 40px 25px !important;
-
-        box-shadow:
-            0 8px 20px
-            rgba(0,0,0,.3);
+        min-height: 0;
+        padding: clamp(12px, 3.5vh, 24px) clamp(12px, 3vw, 24px) !important;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
     }
 
 
     .flip-sheet {
 
-        position: relative;
-
-        width: 100%;
-
-        height: auto;
-
-        display: block;
-
-        transform: none !important;
+        width: 50%;
+        height: 100%;
     }
 
 
     .sheet-front,
     .sheet-back {
 
-        position: relative;
-
-        width: 100%;
-
-        height: auto;
-
-        min-height: 500px;
-
-        transform: none;
-
-        border-radius: 5px !important;
-
-        margin-bottom: 15px;
-
-        padding: 40px 25px !important;
-    }
-
-
-    .cover {
-
-        min-height: 600px;
+        min-height: 0;
+        padding: clamp(12px, 3.5vh, 24px) clamp(12px, 3vw, 24px) !important;
     }
 
 
     .navigation-dock {
 
-        margin-bottom: 20px;
+        flex: 0 0 auto;
+        justify-content: center;
+        gap: clamp(8px, 3vw, 20px);
+        max-width: 100%;
+        padding: 6px 10px;
+    }
+
+
+    .dock-btn {
+
+        min-height: 40px;
+        padding: 8px clamp(12px, 3vw, 20px);
+        font-size: .72rem;
+        white-space: nowrap;
+        touch-action: manipulation;
+    }
+
+
+    .page-status {
+
+        min-width: 0;
+        max-width: 38vw;
+        font-size: .68rem;
+        line-height: 1.2;
+    }
+
+
+    .chapter-heading,
+    .section-title {
+
+        margin-bottom: 12px;
+    }
+
+
+    .thing {
+
+        gap: 6px;
+        margin-bottom: 5px;
+        font-size: clamp(.78rem, 2.2vh, .95rem);
+    }
+
+
+    .cover::before {
+
+        inset: 10px;
+    }
+}
+
+
+@media(max-width:820px) and (orientation: portrait) and (hover: none) and (pointer: coarse) {
+
+    body {
+
+        position: fixed;
+        top: 0;
+        left: 100vw;
+        width: 100dvh;
+        height: 100vw;
+        transform: rotate(90deg);
+        transform-origin: top left;
     }
 }
 
@@ -2154,6 +2167,9 @@ document
         )
             return;
 
+        if(Date.now() - lastSwipeAt < 500)
+            return;
+
 
         const rect =
             event.currentTarget
@@ -2161,8 +2177,9 @@ document
 
 
         const x =
-            event.clientX -
-            rect.left;
+            window.matchMedia("(orientation: portrait)").matches
+                ? event.clientY - rect.top
+                : event.clientX - rect.left;
 
 
         if(
@@ -2181,42 +2198,65 @@ document
    SWIPE
 ========================================================= */
 
-let touchStart = 0;
+let touchStartX = 0;
+let touchStartY = 0;
+let lastSwipeAt = 0;
 
 
-document.addEventListener(
+document
+.querySelector(".book-binding")
+.addEventListener(
     "touchstart",
     event => {
 
-        touchStart =
-            event.changedTouches[0]
-            .screenX;
+        touchStartX =
+            event.changedTouches[0].clientX;
 
-    }
+        touchStartY =
+            event.changedTouches[0].clientY;
+
+    },
+    { passive: true }
 );
 
 
-document.addEventListener(
+document
+.querySelector(".book-binding")
+.addEventListener(
     "touchend",
     event => {
 
-        const touchEnd =
-            event.changedTouches[0]
-            .screenX;
+        const deltaX =
+            event.changedTouches[0].clientX - touchStartX;
 
+        const deltaY =
+            event.changedTouches[0].clientY - touchStartY;
+
+        const isPortrait =
+            window.matchMedia("(orientation: portrait)").matches;
 
         const distance =
-            touchEnd - touchStart;
+            isPortrait ? deltaY : deltaX;
 
+        const crossDistance =
+            isPortrait ? deltaX : deltaY;
 
-        if(distance < -60)
-            nextPage();
+        if(
+            Math.abs(distance) > 60 &&
+            Math.abs(distance) > Math.abs(crossDistance)
+        ) {
 
+            lastSwipeAt = Date.now();
 
-        if(distance > 60)
-            previousPage();
+            if(distance < 0)
+                nextPage();
 
-    }
+            else
+                previousPage();
+        }
+
+    },
+    { passive: true }
 );
 
 
